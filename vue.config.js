@@ -1,3 +1,10 @@
 module.exports = {
-    lintOnSave: false
+  lintOnSave: false,
+  configureWebpack: {
+    resolve: {
+      alias: {
+        assets: '@/assets'
+      }
+    }
+  }
 }
