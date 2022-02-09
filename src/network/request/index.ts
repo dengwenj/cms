@@ -23,7 +23,7 @@ class DWJRequest {
 
     // 添加所有的实例都有的拦截器
     this.instance.interceptors.request.use((config) => {
-      return config
+      return config.data
     }, (error) => {
       return error
     })
