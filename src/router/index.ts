@@ -4,11 +4,11 @@ import type { RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '/login',
-    component: import('@/pages/login/index.vue')
+    component: () => import('@/pages/login/index.vue')
   },
   {
     path: '/main',
-    component: import('@/pages/main/index.vue')
+    component: () => import('@/pages/main/index.vue')
   }
 ]
 
