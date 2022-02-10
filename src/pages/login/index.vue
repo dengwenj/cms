@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ElButton } from 'element-plus'
 
 </script>
 
 <template>
-  <div>
-    login
-    <ElButton type='primary'>Default</ElButton>
+  <div class="login">
+
   </div>
 </template>
+
+<style scoped lang="less">
+.login {
+  height: 100%;
+  background: url(../../assets/img/jiankang.png) no-repeat;
+  background-size: cover;
+}
+</style>
