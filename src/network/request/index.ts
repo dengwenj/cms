@@ -68,7 +68,7 @@ class DWJRequest {
     })
   }
 
-  request<T>(config: DWJRequestConfig): Promise<T> {
+  request<T>(config: DWJRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       // 单个的请求拦截
       if (config.interceptors?.requestInterceptor) {
@@ -98,16 +98,16 @@ class DWJRequest {
     })
   }
 
-  get<T>(config: DWJRequestConfig): Promise<T> {
+  get<T>(config: DWJRequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: 'GET' })
   }
-  post<T>(config: DWJRequestConfig): Promise<T> {
+  post<T>(config: DWJRequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: 'POST' })
   }
-  delete<T>(config: DWJRequestConfig): Promise<T> {
+  delete<T>(config: DWJRequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: 'DELETE' })
   }
-  patch<T>(config: DWJRequestConfig): Promise<T> {
+  patch<T>(config: DWJRequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: 'PATCH' })
   }
 }
