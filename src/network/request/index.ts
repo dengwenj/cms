@@ -23,13 +23,22 @@ class DWJRequest {
 
     // 添加所有的实例都有的拦截器
     this.instance.interceptors.request.use((config) => {
-      return config.data
+      return config
     }, (error) => {
       return error
     })
     this.instance.interceptors.response.use((response) => {
-      return response
+      const data = response.data
+      if (data.returnCode === '-1001') {
+        console.log('请求失败')
+        return
+      }
+      return data
     }, (error) => {
+      // 判断不同的 httpErrorCode 显示不同的错误信息
+      if (error.response.status === '404') {
+        console.log('404')
+      }
       return error
     })
   }
