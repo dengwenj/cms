@@ -9,4 +9,5 @@ export interface DWJRequestInterceptors {
 
 export interface DWJRequestConfig extends AxiosRequestConfig {
   interceptors?: DWJRequestInterceptors
+  showLoading?: boolean
 }
