@@ -1,9 +1,20 @@
 <script lang="ts" setup>
-import { ElTabs, ElTabPane, ElIcon } from 'element-plus'
+import { ref } from 'vue'
+import { ElTabs, ElTabPane, ElIcon, ElCheckbox, ElLink, ElButton } from 'element-plus'
 import { Cellphone, User } from '@element-plus/icons-vue'
 
 import LoginAccount from './login-account.vue'
 import LoginPhone from './login-phone.vue'
+
+const isKeepPassword = ref(false)
+
+// 获取子组件实例  (InstanceType<typeof LoginAccount> 可以拿到组件实例的类型)
+const accountRef = ref<InstanceType<typeof LoginAccount>>()
+
+// 点击登录
+const handleLogin = () => {
+  accountRef.value?.loginAction()
+}
 </script>
 
 <template>
@@ -18,7 +29,7 @@ import LoginPhone from './login-phone.vue'
             <span :style="{ marginLeft: '5px' }">账号登录</span>
           </span>
         </template>
-        <LoginAccount />
+        <LoginAccount ref="accountRef" />
       </ElTabPane>
       <ElTabPane>
         <template #label>
@@ -30,6 +41,13 @@ import LoginPhone from './login-phone.vue'
         <LoginPhone />
       </ElTabPane>
     </ElTabs>
+
+    <div class="footer">
+      <ElCheckbox v-model="isKeepPassword" style="color: #5a9cf8;">记住密码</ElCheckbox>
+      <ElLink type='primary'>忘记密码</ElLink>
+    </div>
+
+    <ElButton style="width: 100%;" type='primary' @click="handleLogin">立即登录</ElButton>
   </div>
 </template>
 
@@ -43,6 +61,10 @@ import LoginPhone from './login-phone.vue'
   .header {
     display: flex;
     align-items: center;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>
