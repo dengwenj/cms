@@ -3,7 +3,7 @@ import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 export interface DWJRequestInterceptors {
   requestInterceptor?: (config: AxiosRequestConfig) => AxiosRequestConfig
   requestInterceptorCatch?: (error: any) => any
-  responseInterceptor?: (response: AxiosResponse) => AxiosResponse
+  responseInterceptor?: (response: any) => any
   responseInterceptorCatch?: (error: any) => any
 }
 

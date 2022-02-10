@@ -15,7 +15,9 @@ class DWJRequest {
   isLoading: boolean
 
   constructor(config: DWJRequestConfig) {
+    // 创建 axios 实例
     this.instance = axios.create(config)
+
     this.interceptors = config.interceptors
     this.isLoading = config.showLoading ?? DEFAULT_LOADING // 没有传的话默认就是要 loading true
 
@@ -66,29 +68,47 @@ class DWJRequest {
     })
   }
 
-  request(config: DWJRequestConfig) {
-    // 单个的请求拦截
-    if (config.interceptors?.requestInterceptor) {
-      config = config.interceptors.requestInterceptor(config)
-    }
-
-    if (config.showLoading === false) {
-      this.isLoading = false
-    }
-
-    this.instance.request(config).then((res) => {
-      // 单个的响应拦截
-      if (config.interceptors?.responseInterceptor) {
-        res = config.interceptors.responseInterceptor(res)
+  request<T>(config: DWJRequestConfig): Promise<T> {
+    return new Promise((resolve, reject) => {
+      // 单个的请求拦截
+      if (config.interceptors?.requestInterceptor) {
+        config = config.interceptors.requestInterceptor(config)
       }
-      console.log(res)
 
-      // 将 isLoading 设置为 true， 这样不会影响下一个请求
-      this.isLoading = DEFAULT_LOADING
-    }).catch((err) => {
-      this.isLoading = DEFAULT_LOADING
-      return err
+      if (config.showLoading === false) {
+        this.isLoading = false
+      }
+
+      this.instance.request<any, T>(config).then((res) => {
+        // 单个的响应拦截
+        if (config.interceptors?.responseInterceptor) {
+          res = config.interceptors.responseInterceptor(res)
+        }
+
+        // 将 isLoading 设置为 true， 这样不会影响下一个请求
+        this.isLoading = DEFAULT_LOADING
+
+        // 将结果返回出去
+        resolve(res)
+      }).catch((err) => {
+        this.isLoading = DEFAULT_LOADING
+        reject(err)
+        return err
+      })
     })
+  }
+
+  get<T>(config: DWJRequestConfig): Promise<T> {
+    return this.request({ ...config, method: 'GET' })
+  }
+  post<T>(config: DWJRequestConfig): Promise<T> {
+    return this.request({ ...config, method: 'POST' })
+  }
+  delete<T>(config: DWJRequestConfig): Promise<T> {
+    return this.request({ ...config, method: 'DELETE' })
+  }
+  patch<T>(config: DWJRequestConfig): Promise<T> {
+    return this.request({ ...config, method: 'PATCH' })
   }
 }
 
