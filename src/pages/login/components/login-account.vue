@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { reactive, defineExpose, ref } from 'vue'
+import { useStore, createNamespacedHelpers } from 'vuex'
 import { ElForm, ElFormItem, ElInput } from 'element-plus'
 
 import { rules } from '../config'
@@ -9,6 +10,9 @@ const account = reactive({
   name: localCache.getCache('name') ?? '',
   password: localCache.getCache('password') ?? ''
 })
+
+const store = useStore()
+// const { mapActions } = createNamespacedHelpers('login')
 
 // 获取 ElForm 组件的实例对象
 const formRef = ref<InstanceType<typeof ElForm>>()
@@ -27,6 +31,10 @@ const loginAction = (isKeepPassword: boolean) => {
         localCache.removeCache('name')
         localCache.removeCache('password')
       }
+
+      // 执行逻辑
+      store.dispatch('login/accountLoginAction', { ...account })
+      // const { accountLoginAction } = mapActions(['accountLoginAction'])
     }
   })
 }
