@@ -12,4 +12,3 @@ import 'element-plus/dist/index.css'
 
 createApp(App).use(router).use(store).mount('#app')
 
-console.log(dwjRequest)

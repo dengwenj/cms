@@ -6,14 +6,14 @@ import { Cellphone, User } from '@element-plus/icons-vue'
 import LoginAccount from './login-account.vue'
 import LoginPhone from './login-phone.vue'
 
-const isKeepPassword = ref(false)
+const isKeepPassword = ref(true)
 
 // 获取子组件实例  (InstanceType<typeof LoginAccount> 可以拿到组件实例的类型)
 const accountRef = ref<InstanceType<typeof LoginAccount>>()
 
 // 点击登录
 const handleLogin = () => {
-  accountRef.value?.loginAction()
+  accountRef.value?.loginAction(isKeepPassword.value)
 }
 </script>
 
