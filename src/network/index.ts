@@ -1,14 +1,14 @@
 import DWJRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
+import localCatch from '@/utils/cache'
 
 const dwjRequest = new DWJRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
     requestInterceptor(config) {
-      console.log('请求成功的拦截')
       // 携带 token 的拦截
-      const token = ''
+      const token = localCatch.getCache('token')
       if (token) {
         if (config.headers) {
           config.headers.Authorization = `Bearer ${token}`
