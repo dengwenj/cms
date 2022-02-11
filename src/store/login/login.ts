@@ -1,6 +1,7 @@
 import type { Module } from 'vuex'
 
-import { accountLogin, userInfoRequest } from '@/network/login/login'
+import router from '@/router'
+import { accountLogin, userInfoRequest, userMenusRequest } from '@/network/login/login'
 import  localCatch from '@/utils/cache'
 
 import type { IAccount } from '@/network/login/types'
@@ -12,7 +13,8 @@ const loginModule: Module<ILoginState, IRootState> = {
   state() {
     return {
       token: localCatch.getCache('token') ?? '',
-      userInfo: localCatch.getCache('userInfo') ?? {}
+      userInfo: localCatch.getCache('userInfo') ?? {},
+      userMenus: localCatch.getCache('userMenus') ?? []
     }
   },
   mutations: {
@@ -21,6 +23,9 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserInfo(state, userInfo: any) {
       state.userInfo = userInfo
+    },
+    changeUserMenus(state, userMenus: any) {
+      state.userMenus = userMenus
     }
   },
   actions: {
@@ -36,6 +41,15 @@ const loginModule: Module<ILoginState, IRootState> = {
       const userInfo = userInfoRes.data
       localCatch.setCache('userInfo', userInfo)
       commit('changeUserInfo', userInfo)
+
+      // 请求用户菜单
+      const userMenusRes = await userMenusRequest(userInfo.role.id)
+      const userMenus = userMenusRes.data
+      localCatch.setCache('userMenus', userMenus)
+      commit('changeUserMenus', userMenus)
+
+      // 跳转到首页
+      router.push('/main')
     },
     phoneLoginAction({ commit }, payload) {
       console.log(payload)
