@@ -1,11 +1,15 @@
 <script lang="ts" setup>
 import { ElContainer, ElAside, ElHeader, ElMain } from 'element-plus'
+
+import NavMenu from '@/components/nav-menu';
 </script>
 
 <template>
   <div class="main">
     <ElContainer class="main-content">
-      <ElAside class="main-aside" width="200px">Aside</ElAside>
+      <ElAside class="main-aside" width="200px">
+        <NavMenu />
+      </ElAside>
       <ElContainer class="page-all">
         <ElHeader class="page-header">Header</ElHeader>
         <ElMain class="page-content">Main</ElMain>
