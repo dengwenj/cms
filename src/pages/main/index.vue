@@ -7,7 +7,7 @@ import NavMenu from '@/components/nav-menu';
 <template>
   <div class="main">
     <ElContainer class="main-content">
-      <ElAside class="main-aside" width="200px">
+      <ElAside class="main-aside" width="210px">
         <NavMenu />
       </ElAside>
       <ElContainer class="page-all">
