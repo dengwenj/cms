@@ -10,15 +10,13 @@ const account = reactive({
   name: localCache.getCache('name') ?? '',
   password: localCache.getCache('password') ?? ''
 })
-
+// 获取 ElForm 组件的实例对象
+const formRef = ref<InstanceType<typeof ElForm>>()
 const store = useStore()
 // const { mapActions } = createNamespacedHelpers('login')
 
-// 获取 ElForm 组件的实例对象
-const formRef = ref<InstanceType<typeof ElForm>>()
-
-// 父组件点击登录会执行这个函数
-const loginAction = (isKeepPassword: boolean) => {
+// 父组件点击账号登录会执行这个函数
+const accountLoginAction = (isKeepPassword: boolean) => {
   formRef.value?.validate((v) => {
     // 当 v 为 true 说明校验通过的
     if (v) {
@@ -40,7 +38,7 @@ const loginAction = (isKeepPassword: boolean) => {
 }
 // 参数里面写的父组件就拿的到了
 defineExpose({
-  loginAction
+  accountLoginAction
 })
 </script>
 

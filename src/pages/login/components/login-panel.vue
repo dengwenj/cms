@@ -7,21 +7,29 @@ import LoginAccount from './login-account.vue'
 import LoginPhone from './login-phone.vue'
 
 const isKeepPassword = ref(true)
-
 // 获取子组件实例  (InstanceType<typeof LoginAccount> 可以拿到组件实例的类型)
 const accountRef = ref<InstanceType<typeof LoginAccount>>()
+// 获取子组件实例 phone 子组件
+const phoneRef = ref<InstanceType<typeof LoginPhone>>()
+// 当前是账号登录还是手机登录
+const currentValue = ref('account')
+
 
 // 点击登录
 const handleLogin = () => {
-  accountRef.value?.loginAction(isKeepPassword.value)
+  if (currentValue.value === 'account') {
+    accountRef.value?.accountLoginAction(isKeepPassword.value)
+  } else if (currentValue.value === 'phone') {
+    phoneRef.value?.phoneLoginAction()
+  }
 }
 </script>
 
 <template>
   <div class="login-panel">
     <h1 class="title">CMS</h1>
-    <ElTabs type="border-card" stretch>
-      <ElTabPane>
+    <ElTabs type="border-card" stretch v-model="currentValue" >
+      <ElTabPane name="account">
         <!-- 这个是插槽 <template #label> -->
         <template #label>
           <span class="header">
@@ -31,14 +39,14 @@ const handleLogin = () => {
         </template>
         <LoginAccount ref="accountRef" />
       </ElTabPane>
-      <ElTabPane>
+      <ElTabPane name="phone">
         <template #label>
           <span class="header">
             <ElIcon><cellphone /></ElIcon>
             <span :style="{ marginLeft: '5px' }">手机登录</span>
           </span>
         </template>
-        <LoginPhone />
+        <LoginPhone ref="phoneRef" />
       </ElTabPane>
     </ElTabs>
 
