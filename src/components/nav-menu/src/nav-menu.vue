@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import { ElMenu, ElSubMenu, ElIcon, ElMenuItemGroup, ElMenuItem } from 'element-plus'
-import { Location, Document, Setting } from '@element-plus/icons-vue'
+import { computed } from 'vue'
+import { ElMenu, ElSubMenu, ElIcon, ElMenuItem } from 'element-plus'
+import { Location } from '@element-plus/icons-vue'
 
 import { useStore } from '@/store'
 
-const store = useStore()
+const store= useStore()
+const userMenus = computed(() => store.state.login.userMenus)
 </script>
 
 <template>
@@ -14,10 +16,23 @@ const store = useStore()
       <span class="name">CMS</span>
     </div>
     <div class="menu">
-      <ElMenu
-        default-active="2"
-        class="el-menu-vertical-demo"
-      >
+      <ElMenu default-active="2" class="el-menu-vertical-demo" text-color="#ffffff" background-color="#071224">
+        <template v-for="item in userMenus" :key="item.id">
+          <template v-if="item.type === 1">
+            <ElSubMenu :index="item.id">
+              <template #title>
+                <ElIcon><Location /></ElIcon>
+                <span style="color: #ccc">{{ item.name }}</span>
+              </template>
+              <template v-for="subMenu in item.children" :key="subMenu.id">
+                <ElMenuItem index="1-1">{{ subMenu.name }}</ElMenuItem>
+              </template>
+            </ElSubMenu>
+          </template>
+          <template v-else-if="item.type === 2">
+            <ElMenuItem index="1-1">{{ item.name }}</ElMenuItem>
+          </template>
+        </template>
       </ElMenu>
     </div>
   </div>
