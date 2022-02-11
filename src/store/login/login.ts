@@ -11,19 +11,24 @@ const loginModule: Module<ILoginState, IRootState> = {
   state() {
     return {
       token: '',
-      userInfo: ''
+      userInfo: {}
+    }
+  },
+  mutations: {
+    changeToken(state, token) {
+      state.token = token
     }
   },
   actions: {
     async accountLoginAction({ commit }, payload: IAccount) {
       const res = await accountLogin(payload)
-      console.log(res)
+      const { id, token } = res.data
+      commit('changeToken', token)
     },
     phoneLoginAction({ commit }, payload) {
       console.log(payload)
     }
-  },
-  mutations: {}
+  }
 }
 
 export default loginModule
