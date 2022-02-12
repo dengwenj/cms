@@ -39,6 +39,7 @@ const handleMenuClick = (menu: IUserMenus) => {
         text-color="#fff"
         :collapse="isCollapse"
         default-active="2"
+        router
       >
         <template v-for="item in userMenus" :key="item.id">
           <template v-if="item.type === 1">
@@ -50,8 +51,7 @@ const handleMenuClick = (menu: IUserMenus) => {
               <template v-for="subMenu in item.children" :key="subMenu.id">
                 <ElMenuItem
                   style="background-color: #04263f; padding-left: 55px;"
-                  :index="subMenu.id + ''"
-                  @click="handleMenuClick(subMenu)"
+                  :index="subMenu.url"
                 >
                   {{ subMenu.name }}
                 </ElMenuItem>
