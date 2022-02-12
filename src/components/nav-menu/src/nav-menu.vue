@@ -16,21 +16,22 @@ const userMenus = computed(() => store.state.login.userMenus)
       <span class="name">CMS</span>
     </div>
     <div class="menu">
-      <ElMenu default-active="2" class="el-menu-vertical-demo" text-color="#ffffff" background-color="#071224">
+      <ElMenu class="el-menu-vertical-demo"  active-text-color="#f8d264"
+        background-color="#071224" text-color="#fff">
         <template v-for="item in userMenus" :key="item.id">
           <template v-if="item.type === 1">
-            <ElSubMenu :index="item.id">
+            <ElSubMenu :index="item.id + ''">
               <template #title>
                 <ElIcon><Location /></ElIcon>
                 <span style="color: #ccc">{{ item.name }}</span>
               </template>
               <template v-for="subMenu in item.children" :key="subMenu.id">
-                <ElMenuItem index="1-1">{{ subMenu.name }}</ElMenuItem>
+                <ElMenuItem :index="subMenu.id + ''">{{ subMenu.name }}</ElMenuItem>
               </template>
             </ElSubMenu>
           </template>
           <template v-else-if="item.type === 2">
-            <ElMenuItem index="1-1">{{ item.name }}</ElMenuItem>
+            <ElMenuItem :index="item.id + ''">{{ item.name }}</ElMenuItem>
           </template>
         </template>
       </ElMenu>
@@ -63,7 +64,7 @@ const userMenus = computed(() => store.state.login.userMenus)
     .el-menu-vertical-demo {
       height: 100%;
       width: 200px;
-      background-color: #071224;
+      background-color: #081f31;
       border: 0;
     }
   }
