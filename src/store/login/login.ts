@@ -3,6 +3,7 @@ import type { Module } from 'vuex'
 import router from '@/router'
 import { accountLogin, userInfoRequest, userMenusRequest } from '@/network/login/login'
 import  localCatch from '@/utils/cache'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 
 import type { IAccount } from '@/network/login/types'
 import type { ILoginState } from './types'
@@ -26,6 +27,9 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+
+      //
+      mapMenusToRoutes(userMenus)
     }
   },
   actions: {
