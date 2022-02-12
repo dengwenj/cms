@@ -1,10 +1,16 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, defineProps } from 'vue'
 import { ElMenu, ElSubMenu, ElIcon, ElMenuItem } from 'element-plus'
 import { Location } from '@element-plus/icons-vue'
 
 import { useStore } from '@/store'
 
+// 父传子
+defineProps({
+  isCollapse: {
+    type: Boolean
+  }
+})
 const store= useStore()
 const userMenus = computed(() => store.state.login.userMenus)
 </script>
@@ -13,11 +19,17 @@ const userMenus = computed(() => store.state.login.userMenus)
   <div class="nav-menu">
     <div class="logo">
       <img src="~@/assets/img/logo.png" alt="logo">
-      <span class="name">CMS</span>
+      <span v-if="!isCollapse" class="name">CMS</span>
     </div>
     <div class="menu">
-      <ElMenu class="el-menu-vertical-demo"  active-text-color="#f8d264"
-        background-color="#071224" text-color="#fff">
+      <ElMenu
+        class="el-menu-vertical-demo"
+        active-text-color="#f8d264"
+        background-color="#071224"
+        text-color="#fff"
+        :collapse="isCollapse"
+        default-active="2"
+      >
         <template v-for="item in userMenus" :key="item.id">
           <template v-if="item.type === 1">
             <ElSubMenu :index="item.id + ''">
@@ -63,7 +75,6 @@ const userMenus = computed(() => store.state.login.userMenus)
     height: 100%;
     .el-menu-vertical-demo {
       height: 100%;
-      width: 200px;
       background-color: #081f31;
       border: 0;
     }

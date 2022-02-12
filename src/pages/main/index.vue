@@ -1,17 +1,27 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { ElContainer, ElAside, ElHeader, ElMain } from 'element-plus'
 
-import NavMenu from '@/components/nav-menu';
+import NavMenu from '@/components/nav-menu'
+import NavHeader from '@/components/nav-header'
+
+const isCollapse = ref(false)
+
+const foldChange = (isFold: boolean) => {
+  isCollapse.value = isFold
+}
 </script>
 
 <template>
   <div class="main">
     <ElContainer class="main-content">
-      <ElAside class="main-aside" width="210px">
-        <NavMenu />
+      <ElAside class="main-aside" :width="isCollapse ? '60px' : '210px'">
+        <NavMenu :isCollapse="isCollapse" />
       </ElAside>
       <ElContainer class="page-all">
-        <ElHeader class="page-header">Header</ElHeader>
+        <ElHeader class="page-header">
+          <NavHeader @foldChange="foldChange" />
+        </ElHeader>
         <ElMain class="page-content">Main</ElMain>
       </ElContainer>
     </ElContainer>
