@@ -38,7 +38,12 @@ const userMenus = computed(() => store.state.login.userMenus)
                 <span style="color: #ccc">{{ item.name }}</span>
               </template>
               <template v-for="subMenu in item.children" :key="subMenu.id">
-                <ElMenuItem :index="subMenu.id + ''">{{ subMenu.name }}</ElMenuItem>
+                <ElMenuItem
+                  style="background-color: #04263f; padding-left: 55px;"
+                  :index="subMenu.id + ''"
+                >
+                  {{ subMenu.name }}
+                </ElMenuItem>
               </template>
             </ElSubMenu>
           </template>
