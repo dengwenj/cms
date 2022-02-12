@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import { computed, defineProps } from 'vue'
+import { useRouter } from 'vue-router'
 import { ElMenu, ElSubMenu, ElIcon, ElMenuItem } from 'element-plus'
 import { Location } from '@element-plus/icons-vue'
 
 import { useStore } from '@/store'
+
+import type { IUserMenus } from '@/utils/types'
 
 // 父传子
 defineProps({
@@ -12,7 +15,14 @@ defineProps({
   }
 })
 const store= useStore()
+const router = useRouter()
 const userMenus = computed(() => store.state.login.userMenus)
+
+const handleMenuClick = (menu: IUserMenus) => {
+  router.push({
+    path: menu.url ?? 'not-found'
+  })
+}
 </script>
 
 <template>
@@ -41,6 +51,7 @@ const userMenus = computed(() => store.state.login.userMenus)
                 <ElMenuItem
                   style="background-color: #04263f; padding-left: 55px;"
                   :index="subMenu.id + ''"
+                  @click="handleMenuClick(subMenu)"
                 >
                   {{ subMenu.name }}
                 </ElMenuItem>

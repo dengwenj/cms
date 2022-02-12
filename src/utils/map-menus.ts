@@ -15,9 +15,22 @@ export function mapMenusToRoutes(userMenus: IUserMenus[]): RouteRecordRaw[] {
     const routeModule = require('../router/main' + key.split('.')[1])
     allRoutes.push(routeModule.default)
   })
-  console.log(allRoutes)
 
   // 2 根据菜单需要添加的 routes
+  const _recurseGetRoute = (userMenus: IUserMenus[]) => {
+    for (const menu of userMenus) {
+      if (menu.type === 2) {
+        // 取到那个有的了
+        const route = allRoutes.find((route) => route.path === menu.url)
+        if (route) {
+          routes.push(route)
+        }
+      } else {
+        _recurseGetRoute(menu.children)
+      }
+    }
+  }
+  _recurseGetRoute(userMenus)
 
   return routes
 }

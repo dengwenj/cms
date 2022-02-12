@@ -28,8 +28,12 @@ const loginModule: Module<ILoginState, IRootState> = {
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
 
-      //
-      mapMenusToRoutes(userMenus)
+      // 动态添加的菜单
+      const routes = mapMenusToRoutes(userMenus)
+      // 将 routes 添加到 main 的 children 里面
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {
@@ -55,9 +59,9 @@ const loginModule: Module<ILoginState, IRootState> = {
       // 跳转到首页
       router.push('/main')
     },
-    phoneLoginAction({ commit }, payload) {
-      console.log(payload)
-    }
+    // phoneLoginAction({ commit }, payload) {
+    //   console.log(payload)
+    // }
   }
 }
 

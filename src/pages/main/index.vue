@@ -22,7 +22,9 @@ const foldChange = (isFold: boolean) => {
         <ElHeader class="page-header">
           <NavHeader @foldChange="foldChange" />
         </ElHeader>
-        <ElMain class="page-content">Main</ElMain>
+        <ElMain class="page-content">
+          <router-view />
+        </ElMain>
       </ElContainer>
     </ElContainer>
   </div>

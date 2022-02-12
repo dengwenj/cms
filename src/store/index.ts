@@ -2,6 +2,7 @@ import { createStore, useStore as useVuexStore } from 'vuex'
 import type { Store } from 'vuex'
 
 import loginModule from './login/login'
+import localCatch from '@/utils/cache'
 
 import type { IRootState, IStore } from './types'
 
@@ -16,6 +17,14 @@ const store = createStore<IRootState>({
     login: loginModule
   }
 })
+
+// 一上来就要调一次
+export function setupStore() {
+  store.dispatch('login/accountLoginAction', {
+    name: localCatch.getCache('name'),
+    password: localCatch.getCache('password')
+  })
+}
 
 // 自己封闭 useStore 方便使用类型  Store<IStore>
 export function useStore(): Store<IStore> {
