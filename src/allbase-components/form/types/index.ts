@@ -7,3 +7,10 @@ export interface IFormItem {
   options?: any[] // select 里面 options 的属性
   otherOptions?: any // 特殊的属性
 }
+
+export interface IForm {
+  formItem: IFormItem[]
+  labelWidth?: string
+  itemStyle?: Record<string, string>
+  colLayout?: Record<string, number>
+}
