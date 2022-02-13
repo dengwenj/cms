@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { computed, defineProps } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed, defineProps, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { ElMenu, ElSubMenu, ElIcon, ElMenuItem } from 'element-plus'
 import { Location } from '@element-plus/icons-vue'
 
 import { useStore } from '@/store'
+import { pathMapToMenu } from '@/utils/map-menus'
 
 import type { IUserMenus } from '@/utils/types'
 
@@ -15,8 +16,15 @@ defineProps({
   }
 })
 const store= useStore()
-const router = useRouter()
 const userMenus = computed(() => store.state.login.userMenus)
+
+const router = useRouter()
+const route = useRoute()
+const currentPath = route.path
+
+const menu = pathMapToMenu(userMenus.value, currentPath)
+
+const defaultValue = ref(menu?.id + '')
 
 const handleMenuClick = (menu: IUserMenus) => {
   router.push({
@@ -38,8 +46,7 @@ const handleMenuClick = (menu: IUserMenus) => {
         background-color="#071224"
         text-color="#fff"
         :collapse="isCollapse"
-        default-active="2"
-        router
+        :default-active="defaultValue"
       >
         <template v-for="item in userMenus" :key="item.id">
           <template v-if="item.type === 1">
@@ -51,7 +58,8 @@ const handleMenuClick = (menu: IUserMenus) => {
               <template v-for="subMenu in item.children" :key="subMenu.id">
                 <ElMenuItem
                   style="background-color: #04263f; padding-left: 55px;"
-                  :index="subMenu.url"
+                  :index="subMenu.id + ''"
+                  @click="handleMenuClick(subMenu)"
                 >
                   {{ subMenu.name }}
                 </ElMenuItem>
