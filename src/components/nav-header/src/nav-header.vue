@@ -1,15 +1,31 @@
 <script lang="ts" setup>
 import { ref, defineEmits, computed } from 'vue'
-import { ElIcon, ElDropdown, ElDropdownMenu, ElDropdownItem, ElAvatar } from 'element-plus'
+import { useRoute } from 'vue-router'
+import {
+  ElIcon,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem,
+  ElAvatar,
+} from 'element-plus'
 import { DArrowLeft, DArrowRight, ArrowDown } from '@element-plus/icons-vue'
 
+import DwjBreadcrumb from '@/allbase-components/breadcrumb'
 import { useStore } from '@/store'
+import { pathMapBreadcrumbs } from '@/utils/map-menus'
 
 const emit = defineEmits(['foldChange'])
 
 const isFold = ref(false)
 const store = useStore()
 const userName = computed(() => store.state.login.userInfo.name)
+
+// 面包屑数据
+const breadcrumbs = computed(() => {
+  const { path: currentPath } = useRoute()
+  const userMenus = store.state.login.userMenus
+  return pathMapBreadcrumbs(userMenus, currentPath)
+})
 
 const handlerClick = () => {
   isFold.value = !isFold.value
@@ -25,7 +41,9 @@ const handlerClick = () => {
       <template v-else><DArrowLeft /></template>
     </ElIcon>
     <div class="qt">
-      <div class="mbs">面包屑</div>
+      <div class="mbs">
+        <DwjBreadcrumb :breadcrumbs="breadcrumbs" />
+      </div>
       <div class="user-info">
         <ElDropdown>
           <span class="el-dropdown-link">
