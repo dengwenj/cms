@@ -23,7 +23,9 @@ const foldChange = (isFold: boolean) => {
           <NavHeader @foldChange="foldChange" />
         </ElHeader>
         <ElMain class="page-content">
-          <router-view />
+          <div class="page-info">
+            <router-view />
+          </div>
         </ElMain>
       </ElContainer>
     </ElContainer>
@@ -44,9 +46,13 @@ const foldChange = (isFold: boolean) => {
         align-items: center;
       }
       .page-content {
-        display: flex;
-        justify-content: center;
+        // display: flex;
+        // justify-content: center;
         background-color: #f1f0f5;
+        .page-info {
+          background-color: #fff;
+          border-radius: 5px;
+        }
       }
     }
   }
