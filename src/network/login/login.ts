@@ -1,6 +1,7 @@
 import dwjRequest from '..'
 
-import type { IAccount, IDataType, ILoginRes } from './types'
+import type { IDataType } from '../types'
+import type { IAccount, ILoginRes } from './types'
 
 enum LoginAPI {
   AccountLogin = '/login',

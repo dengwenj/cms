@@ -1,7 +1,8 @@
 import { createStore, useStore as useVuexStore } from 'vuex'
 import type { Store } from 'vuex'
 
-import loginModule from './login/login'
+import login from './login/login'
+import system from './main/system/system'
 import localCatch from '@/utils/cache'
 
 import type { IRootState, IStore } from './types'
@@ -14,7 +15,8 @@ const store = createStore<IRootState>({
     }
   },
   modules: {
-    login: loginModule
+    login,
+    system
   }
 })
 
