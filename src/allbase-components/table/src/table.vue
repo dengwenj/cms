@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 import { ElTable, ElTableColumn } from 'element-plus'
 
 defineProps({
@@ -10,13 +10,45 @@ defineProps({
   propList: {
     type: Array as any,
     required: true
+  },
+  isShowIndexColumn: {
+    type: Boolean,
+    default: false
+  },
+  isShowSelectColumn: {
+    type: Boolean,
+    default: false
   }
 })
+
+const emit = defineEmits(['selectionChange'])
+
+const handleSelectionChange = (value: any) => {
+  emit('selectionChange', value)
+}
 </script>
 
 <template>
   <div class="dwj-table">
-    <ElTable :data="pageList" border style="width: 100%">
+    <ElTable
+      :data="pageList"
+      border
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
+      <ElTableColumn
+        v-if="isShowSelectColumn"
+        type='selection'
+        width="50"
+        align="center"
+      />
+      <ElTableColumn
+        v-if="isShowIndexColumn"
+        type="index"
+        align="center"
+        label="序号"
+        width="60"
+      />
       <template v-for="item in propList" :key="item.prop">
         <ElTableColumn v-bind="item" align='center'>
           <template #default="scope"> <!-- 这里在使用插槽，插槽里面在放插槽 -->

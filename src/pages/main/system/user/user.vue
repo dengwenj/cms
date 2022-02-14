@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { ElButton } from 'element-plus'
+import { Edit, Delete } from '@element-plus/icons-vue'
 
 import DwjTable from '@/allbase-components/table'
 import { useStore } from '@/store'
@@ -18,27 +19,41 @@ store.dispatch('system/getPageListAction', {
   }
 })
 
+// 传给 table 的数据 props
 const userList = computed(() => store.state.system.userList)
-
 const propList = [
-  { prop: 'name', label: '姓名',  },
+  { prop: 'name', label: '姓名', },
   { prop: 'realname', label: '真实姓名', },
   { prop: 'cellphone', label: '手机号码', },
-  { prop: 'enable', label: '状态', slotName: 'enable'  },
+  { prop: 'enable', label: '状态', width: '100', slotName: 'enable'  },
   { prop: 'createAt', label: '创建时间', slotName: 'createAt' },
   { prop: 'updateAt', label: '更新时间', slotName: 'updateAt' },
+  { label: '编辑', slotName: 'handle', width: '130' },
 ]
+const isShowIndexColumn = true
+const isShowSelectColumn = true
+
+const selectionChange = (value: any) => {
+  console.log(value)
+}
 </script>
 
 <template>
   <div class="user">
     <pageSearch :searchFormConfig="searchFormConfig" />
     <div class="content">
-      <DwjTable :pageList="userList" :propList="propList">
+      <DwjTable
+        :pageList="userList"
+        :propList="propList"
+        :isShowIndexColumn="isShowIndexColumn"
+        :isShowSelectColumn="isShowSelectColumn"
+        @selectionChange="selectionChange"
+      >
         <template #enable="zijiqudemingzi">
           <ElButton
             plain
             :type="zijiqudemingzi.row.enable ? 'success' : 'warning'"
+            size='small'
           >
             {{ zijiqudemingzi.row.enable ? '启用' : '禁用' }}
           </ElButton>
@@ -48,6 +63,10 @@ const propList = [
         </template>
         <template #updateAt="updateAt">
           {{ $filters.formatTime(updateAt.row.updateAt) }}
+        </template>
+        <template #handle>
+          <ElButton :icon="Edit" size='small' type="text">编辑</ElButton>
+          <ElButton :icon="Delete" size="small" type='text' style="color: #e06c75;">删除</ElButton>
         </template>
       </DwjTable>
     </div>
