@@ -5,7 +5,7 @@ import { getPageListData } from "@/network/main/system/system"
 import type { IRootState } from '../../types'
 import type { ISystemState, ISystemPayload, IUserList } from './types'
 
-const systemModule: Module<ISystemState,IRootState> = {
+const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
   state() {
     return {

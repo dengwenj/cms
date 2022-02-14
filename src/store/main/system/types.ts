@@ -16,7 +16,7 @@ export interface ISystemPayload {
 export interface IUserList {
   cellphone?: number
   createAt?: string
-  deparmentId?: number
+  departmentId?: number
   enable?: number
   id?: number
   name?: string
