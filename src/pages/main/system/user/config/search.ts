@@ -2,24 +2,21 @@ import { IFormItem, IForm } from '@/allbase-components/form'
 
 const formItem: IFormItem[] = [
   {
+    fieid: 'name', // 字段
     type: 'input',
-    label: '哈哈哈',
+    label: '用户名',
     rules: [],
     placeheader: '用户名'
   },
   {
+    fieid: 'id',
     type: 'password',
-    label: '哈哈哈',
+    label: 'id',
     rules: [],
-    placeheader: '用户名'
+    placeheader: 'id'
   },
   {
-    type: 'input',
-    label: '哈哈哈',
-    rules: [],
-    placeheader: '用户名'
-  },
-  {
+    fieid: 'dz',
     type: 'select',
     label: '哈哈哈',
     rules: [],
@@ -36,6 +33,7 @@ const formItem: IFormItem[] = [
     ]
   },
   {
+    fieid: 'createTime',
     type: 'datepicker',
     label: '哈哈哈',
     rules: [],
