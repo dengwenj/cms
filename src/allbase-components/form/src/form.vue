@@ -34,6 +34,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:modelValue'])
 
+// 不能直接修改 props ，单向数据流，在创建个状态，把 props 里面的数据放进来，也不要用引用
 const formData = ref({ ...props.modelValue })
 
 watch(formData, (newValue) => {
@@ -45,6 +46,9 @@ watch(formData, (newValue) => {
 
 <template>
   <div class="dwj-form">
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <ElForm :label-width="labelWidth" :style="itemStyle">
       <el-row>
         <template v-for="item in formItem" :key="item.label">
@@ -77,6 +81,9 @@ watch(formData, (newValue) => {
         </template>
       </el-row>
     </ElForm>
+    <div class="footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
