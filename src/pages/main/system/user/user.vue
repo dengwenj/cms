@@ -32,9 +32,15 @@ const propList = [
 ]
 const isShowIndexColumn = true
 const isShowSelectColumn = true
+const title = '用户列表'
 
 const selectionChange = (value: any) => {
   console.log(value)
+}
+
+// 新建用户
+const handleCreateUser = () => {
+  console.log('新建用户')
 }
 </script>
 
@@ -43,12 +49,18 @@ const selectionChange = (value: any) => {
     <pageSearch :searchFormConfig="searchFormConfig" />
     <div class="content">
       <DwjTable
+        :title="title"
         :pageList="userList"
         :propList="propList"
         :isShowIndexColumn="isShowIndexColumn"
         :isShowSelectColumn="isShowSelectColumn"
         @selectionChange="selectionChange"
       >
+        <!-- header-handler 插槽 -->
+        <template #header-handler>
+          <ElButton type='primary' @click="handleCreateUser">新建用户</ElButton>
+        </template>
+        <!-- 内容插槽 -->
         <template #enable="zijiqudemingzi">
           <ElButton
             plain

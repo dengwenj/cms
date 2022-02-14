@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits } from 'vue'
-import { ElTable, ElTableColumn } from 'element-plus'
+import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
 
 defineProps({
   pageList: {
@@ -18,6 +18,9 @@ defineProps({
   isShowSelectColumn: {
     type: Boolean,
     default: false
+  },
+  title: {
+    type: String,
   }
 })
 
@@ -30,6 +33,16 @@ const handleSelectionChange = (value: any) => {
 
 <template>
   <div class="dwj-table">
+    <div class="header">
+      <slot name="header">
+        <div class="header-title-handler">
+          <h3 class="title">{{ title }}</h3>
+          <div class="handler">
+            <slot name="header-handler"></slot>
+          </div>
+        </div>
+      </slot>
+    </div>
     <ElTable
       :data="pageList"
       border
@@ -58,6 +71,23 @@ const handleSelectionChange = (value: any) => {
         </ElTableColumn>>
       </template>
     </ElTable>
+    <div class="footer">
+      <slot name="footer">
+        <ElPagination
+          v-model:currentPage="currentPage4"
+          v-model:page-size="pageSize4"
+          :page-sizes="[100, 200, 300, 400]"
+          :small="small"
+          :disabled="disabled"
+          :background="background"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        >
+        </ElPagination>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -65,5 +95,17 @@ const handleSelectionChange = (value: any) => {
 .dwj-table {
   padding: 20px;
   border-top: 20px solid #f5f5f5;
+  .header {
+    .header-title-handler {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px 10px 10px;
+    }
+  }
+  .el-pagination {
+    padding-top: 20px;
+    justify-content: right;
+  }
 }
 </style>
