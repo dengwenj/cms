@@ -23,7 +23,7 @@ const userList = computed(() => store.state.system.userList)
 const propList = [
   { prop: 'name', label: '姓名',  },
   { prop: 'realname', label: '真实姓名', },
-  { prop: 'departmentId', label: '状态', slotName: 'departmentId'  },
+  { prop: 'enable', label: '状态', slotName: 'enable'  },
   { prop: 'cellphone', label: '手机号码', },
   { prop: 'createAt', label: '创建时间', slotName: 'createAt' },
   { prop: 'updateAt', label: '更新时间', slotName: 'updateAt' },
@@ -35,11 +35,11 @@ const propList = [
     <pageSearch :searchFormConfig="searchFormConfig" />
     <div class="content">
       <DwjTable :pageList="userList" :propList="propList">
-        <template #departmentId="zijiqudemingzi">
+        <template #enable="zijiqudemingzi">
           <ElButton
-            :type="zijiqudemingzi.row.departmentId ? 'success' : 'warning'"
+            :type="zijiqudemingzi.row.enable ? 'success' : 'warning'"
           >
-            {{ zijiqudemingzi.row.departmentId ? '启用' : '禁用' }} {{ zijiqudemingzi.hh }}
+            {{ zijiqudemingzi.row.enable ? '启用' : '禁用' }} {{ zijiqudemingzi.hh }}
           </ElButton>
         </template>
         <template #createAt="createAt">
