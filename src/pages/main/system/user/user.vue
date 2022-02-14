@@ -23,8 +23,8 @@ const userList = computed(() => store.state.system.userList)
 const propList = [
   { prop: 'name', label: '姓名',  },
   { prop: 'realname', label: '真实姓名', },
-  { prop: 'enable', label: '状态', slotName: 'enable'  },
   { prop: 'cellphone', label: '手机号码', },
+  { prop: 'enable', label: '状态', slotName: 'enable'  },
   { prop: 'createAt', label: '创建时间', slotName: 'createAt' },
   { prop: 'updateAt', label: '更新时间', slotName: 'updateAt' },
 ]
@@ -37,13 +37,17 @@ const propList = [
       <DwjTable :pageList="userList" :propList="propList">
         <template #enable="zijiqudemingzi">
           <ElButton
+            plain
             :type="zijiqudemingzi.row.enable ? 'success' : 'warning'"
           >
-            {{ zijiqudemingzi.row.enable ? '启用' : '禁用' }} {{ zijiqudemingzi.hh }}
+            {{ zijiqudemingzi.row.enable ? '启用' : '禁用' }}
           </ElButton>
         </template>
         <template #createAt="createAt">
-          {{ createAt }}
+          {{ $filters.formatTime(createAt.row.createAt) }}
+        </template>
+        <template #updateAt="updateAt">
+          {{ $filters.formatTime(updateAt.row.updateAt) }}
         </template>
       </DwjTable>
     </div>
