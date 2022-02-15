@@ -47,6 +47,18 @@ const pageCount = computed(() => {
   return store.getters['system/pageCountData'](props.pageName)
 })
 
+// 获取其他的动态插槽名称
+const { propList } = props.contentTableConfig
+const slotNameFilterObj = propList.filter((item: any) => {
+  if (item.slotName === 'status') return false
+  if (item.slotName === 'createAt') return false
+  if (item.slotName === 'updateAt') return false
+  if (item.slotName === 'handle') return false
+  return true
+})
+console.log(slotNameFilterObj);
+
+
 const selectionChange = (value: any) => {
   console.log(value)
 }
@@ -88,6 +100,12 @@ defineExpose({
       <template #handle>
         <ElButton :icon="Edit" size='small' type="text">编辑</ElButton>
         <ElButton :icon="Delete" size="small" type='text' style="color: #e06c75;">删除</ElButton>
+      </template>
+      <!-- 动态插槽 -->
+      <template v-for="item in slotNameFilterObj" :key="item.prop" #[item.slotName]="scope">
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
       </template>
     </DwjTable>
   </div>
