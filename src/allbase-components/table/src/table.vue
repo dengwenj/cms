@@ -30,6 +30,14 @@ const props = defineProps({
   page: {
     type: Object,
     default: () => ({ pageCurrent: 0, pageSize: 10 })
+  },
+  childrenProps: {
+    type: Object,
+    default: () => ({})
+  },
+  isShowFooter: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -64,6 +72,7 @@ const handleCurrentChange = (pageCurrent: number) => {
       border
       style="width: 100%"
       @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
     >
       <ElTableColumn
         v-if="isShowSelectColumn"
@@ -87,7 +96,7 @@ const handleCurrentChange = (pageCurrent: number) => {
         </ElTableColumn>>
       </template>
     </ElTable>
-    <div class="footer">
+    <div class="footer" v-if="isShowFooter">
       <slot name="footer">
         <ElPagination
           :currentPage="page.pageCurrent"
