@@ -1,4 +1,5 @@
-import { Ref, ref } from "vue"
+import { ref } from "vue"
+import type { Ref } from "vue"
 
 import PageContent from "@/components/page-content"
 

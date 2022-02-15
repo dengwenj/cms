@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, computed, defineExpose } from 'vue'
+import { defineProps, computed, defineExpose, ref, watch } from 'vue'
 import { ElButton } from 'element-plus'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
@@ -17,23 +17,34 @@ const props = defineProps({
   }
 })
 
-const store = useStore()
+// 双向绑定 pageInfo
+const pageInfo = ref({
+  pageCurrent: 0,
+  pageSize: 10
+})
 
+const store = useStore()
 const getListData = (queryInfo: any = {}) => {
   store.dispatch('system/getPageListAction', {
     // pageUrl: '/users/list',
     pageName: props.pageName,
     queryInfo: {
-      offset: 0,
-      size: 10,
+      offset: pageInfo.value.pageCurrent * pageInfo.value.pageSize,
+      size: pageInfo.value.pageSize,
       ...queryInfo
     }
   })
 }
 getListData()
 
-const userList = computed(() => {
+// 当 pageCurrent 或者 pageSize 改变的时候会触发
+watch(pageInfo, () => getListData(), { deep: true })
+
+const pageList = computed(() => {
   return store.getters['system/pageListData'](props.pageName)
+})
+const pageCount = computed(() => {
+  return store.getters['system/pageCountData'](props.pageName)
 })
 
 const selectionChange = (value: any) => {
@@ -49,8 +60,10 @@ defineExpose({
   <div class="page-content">
     <DwjTable
       v-bind="contentTableConfig"
-      :pageList="userList"
+      :pageList="pageList"
       @selectionChange="selectionChange"
+      :pageCount="pageCount"
+      v-model:page="pageInfo"
     >
       <!-- header-handler 插槽 -->
       <template #header-handler>

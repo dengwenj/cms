@@ -2,9 +2,13 @@
 import { defineProps, defineEmits } from 'vue'
 import { ElTable, ElTableColumn, ElPagination } from 'element-plus'
 
-defineProps({
+const props = defineProps({
   pageList: {
     type: Array,
+    required: true
+  },
+  pageCount: {
+    type: Number,
     required: true
   },
   propList: {
@@ -21,13 +25,25 @@ defineProps({
   },
   title: {
     type: String,
+  },
+  // 组件上写的 v-model
+  page: {
+    type: Object,
+    default: () => ({ pageCurrent: 0, pageSize: 10 })
   }
 })
 
-const emit = defineEmits(['selectionChange'])
+const emit = defineEmits(['selectionChange', 'update:page'])
 
 const handleSelectionChange = (value: any) => {
   emit('selectionChange', value)
+}
+
+const handleSizeChange = (pageSize: number) => {
+  emit('update:page', { ...props.page, pageSize })
+}
+const handleCurrentChange = (pageCurrent: number) => {
+  emit('update:page', { ...props.page, pageCurrent })
 }
 </script>
 
@@ -74,14 +90,11 @@ const handleSelectionChange = (value: any) => {
     <div class="footer">
       <slot name="footer">
         <ElPagination
-          v-model:currentPage="currentPage4"
-          v-model:page-size="pageSize4"
-          :page-sizes="[100, 200, 300, 400]"
-          :small="small"
-          :disabled="disabled"
-          :background="background"
+          :currentPage="page.pageCurrent"
+          :page-size="page.pageSize"
+          :page-sizes="[10, 20, 30]"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="pageCount"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         >

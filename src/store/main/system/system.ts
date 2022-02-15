@@ -61,6 +61,11 @@ const systemModule: Module<ISystemState, IRootState> = {
         //     return state.roleList
         // }
       }
+    },
+    pageCountData(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`] ?? 0
+      }
     }
   }
 }
