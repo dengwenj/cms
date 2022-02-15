@@ -1,6 +1,8 @@
 export interface ISystemState {
   userList: any[]
   userCount: number
+  roleList: any[]
+  roleCount: number
 }
 
 export interface IQueryInfo {
@@ -9,7 +11,7 @@ export interface IQueryInfo {
 }
 
 export interface ISystemPayload {
-  pageUrl: string
+  pageName: string
   queryInfo: IQueryInfo
 }
 
@@ -22,5 +24,12 @@ export interface IUserList {
   name?: string
   realname?: string
   roleId?: number
+  updateAt?: string
+}
+
+export interface IRoleList {
+  name?: string
+  intro?: string
+  createAt?: string
   updateAt?: string
 }

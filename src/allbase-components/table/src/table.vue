@@ -9,7 +9,7 @@ defineProps({
   },
   propList: {
     type: Array as any,
-    required: true
+    // required: true
   },
   isShowIndexColumn: {
     type: Boolean,

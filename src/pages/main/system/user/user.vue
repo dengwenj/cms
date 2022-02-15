@@ -9,7 +9,7 @@ import contentTableConfig from './config/content'
   <div class="user">
     <PageSearch :searchFormConfig="searchFormConfig" />
     <div class="content">
-      <PageContent :contentTableConfig="contentTableConfig"></PageContent>
+      <PageContent :contentTableConfig="contentTableConfig" pageName="user"></PageContent>
     </div>
   </div>
 </template>

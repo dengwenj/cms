@@ -6,9 +6,13 @@ import { Edit, Delete } from '@element-plus/icons-vue'
 import { useStore } from '@/store'
 import DwjTable from '@/allbase-components/table'
 
-defineProps({
+const props = defineProps({
   contentTableConfig: {
     type: Object,
+    required: true
+  },
+  pageName: {
+    type: String,
     required: true
   }
 })
@@ -16,14 +20,17 @@ defineProps({
 const store = useStore()
 
 store.dispatch('system/getPageListAction', {
-  pageUrl: '/users/list',
+  // pageUrl: '/users/list',
+  pageName: props.pageName,
   queryInfo: {
     offset: 0,
     size: 10
   }
 })
 
-const userList = computed(() => store.state.system.userList)
+const userList = computed(() => {
+  return store.getters['system/pageListData'](props.pageName)
+})
 
 const selectionChange = (value: any) => {
   console.log(value)

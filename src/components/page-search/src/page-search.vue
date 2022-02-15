@@ -26,7 +26,7 @@ const formData = ref({
   <div class="page-search">
     <DWJForm v-bind="searchFormConfig" v-model="formData">
       <template #header>
-        <h2>user</h2>
+        <h2 style="text-align: center; color: #599df8">高级组件</h2>
       </template>
       <template #footer>
         <div class="footer">
