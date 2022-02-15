@@ -6,4 +6,5 @@ export interface IUserMenus {
   sort: number
   type: number
   url: string
+  permission: string
 }

@@ -5,6 +5,7 @@ import { Edit, Delete } from '@element-plus/icons-vue'
 
 import { useStore } from '@/store'
 import DwjTable from '@/allbase-components/table'
+import usePermission from '@/hooks/usePermission'
 
 const props = defineProps({
   contentTableConfig: {
@@ -23,8 +24,16 @@ const pageInfo = ref({
   pageSize: 10
 })
 
+const myCreate = usePermission(props.pageName, 'create')
+const myDelete = usePermission(props.pageName, 'delete')
+const myUpdate = usePermission(props.pageName, 'update')
+const myQuery = usePermission(props.pageName, 'query')
+
 const store = useStore()
 const getListData = (queryInfo: any = {}) => {
+  // 没有查询功能就不往后走了
+  if (!myQuery) return
+
   store.dispatch('system/getPageListAction', {
     // pageUrl: '/users/list',
     pageName: props.pageName,
@@ -79,7 +88,7 @@ defineExpose({
     >
       <!-- header-handler 插槽 -->
       <template #header-handler>
-        <ElButton type='primary'>新建用户</ElButton>
+        <ElButton v-if="myCreate" type='primary'>新建用户</ElButton>
       </template>
       <!-- 内容插槽 -->
       <template #enable="zijiqudemingzi">
@@ -98,8 +107,8 @@ defineExpose({
         {{ $filters.formatTime(updateAt.row.updateAt) }}
       </template>
       <template #handle>
-        <ElButton :icon="Edit" size='small' type="text">编辑</ElButton>
-        <ElButton :icon="Delete" size="small" type='text' style="color: #e06c75;">删除</ElButton>
+        <ElButton v-if="myUpdate" :icon="Edit" size='small' type="text">编辑</ElButton>
+        <ElButton v-if="myDelete" :icon="Delete" size="small" type='text' style="color: #e06c75;">删除</ElButton>
       </template>
       <!-- 动态插槽 -->
       <template v-for="item in slotNameFilterObj" :key="item.prop" #[item.slotName]="scope">

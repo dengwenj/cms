@@ -66,6 +66,24 @@ export function pathMapToMenu(
   }
 }
 
+// 权限
+export function mapMenusToPermissions(userMenus: IUserMenus[]) {
+  const permissions: string[] = []
+
+  const _recurseGetRoute = (menus: IUserMenus[]) => {
+    for (const menu of menus) {
+      if (menu.type === 1 || menu.type === 2) {
+        _recurseGetRoute(menu.children ?? [])
+      } else if (menu.type === 3) {
+        permissions.push(menu.permission)
+      }
+    }
+  }
+  _recurseGetRoute(userMenus)
+
+  return permissions
+}
+
 export {
   firstMenu
 }
