@@ -65,7 +65,7 @@ watch(formData, (newValue) => {
               <template v-else-if="item.type === 'select'">
                 <el-form-item :label="item.label">
                   <ElSelect style="width: 100%;" :placeholder="item.placeheader" v-model="formData[item.fieid]">
-                    <ElOption v-for="item1 in item.options" :key="item1.value" :value="item1.value">
+                    <ElOption v-for="item1 in item.options" :key="item1.value" :value="item1.value" :label="item1.title">
                       {{ item1.title }}
                     </ElOption>
                   </ElSelect>
@@ -73,7 +73,7 @@ watch(formData, (newValue) => {
               </template>
               <template v-else-if="item.type === 'datepicker'">
                 <el-form-item :label="item.label">
-                  <ElDatePicker v-bind="item.otherOptions" type="daterange" v-model="formData[item.fieid]">
+                  <ElDatePicker v-bind="item.otherOptions" v-model="formData[item.fieid]">
                   </ElDatePicker>
                 </el-form-item>
               </template>

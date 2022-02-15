@@ -2,52 +2,53 @@ import { IFormItem, IForm } from '@/allbase-components/form'
 
 const formItem: IFormItem[] = [
   {
-    fieid: 'name', // 字段
-    type: 'input',
-    label: '用户名',
-    rules: [],
-    placeheader: '请输入用户名'
-  },
-  {
     fieid: 'id',
     type: 'input',
     label: 'id',
-    rules: [],
     placeheader: '请输入id'
   },
   {
-    fieid: 'password',
-    type: 'password',
-    label: '密码',
-    rules: [],
-    placeheader: '请输入密码'
+    fieid: 'name', // 字段
+    type: 'input',
+    label: '用户名',
+    placeheader: '请输入用户名'
   },
   {
-    fieid: 'dz',
+    fieid: 'realname',
+    type: 'input',
+    label: '真实姓名',
+    placeheader: '请输入真实姓名'
+  },
+  {
+    fieid: 'cellphone',
+    type: 'input',
+    label: '电话号码',
+    placeheader: '请输入电话号码'
+  },
+  {
+    fieid: 'enable',
     type: 'select',
-    label: '哈哈哈',
-    rules: [],
-    placeheader: '用户名',
+    label: '用户状态',
+    placeheader: '请选择用户状态',
     options: [
       {
-        title: 'dwj',
-        value: '你好'
+        title: '启用',
+        value: 1
       },
       {
-        title: 'zww',
-        value: '你好啊'
+        title: '禁用',
+        value: 0
       }
     ]
   },
   {
-    fieid: 'createTime',
+    fieid: 'createAt',
     type: 'datepicker',
     label: '创建时间',
-    rules: [],
-    placeheader: '用户名',
     otherOptions: {
       'start-placeholder': '开始时间',
-      'end-placeholder': '结束时间'
+      'end-placeholder': '结束时间',
+      type: 'daterange'
     }
   }
 ]

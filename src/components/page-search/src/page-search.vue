@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, defineProps, PropType } from 'vue'
+import { ref, defineProps, PropType, defineEmits } from 'vue'
 import { ElButton } from 'element-plus'
 import { Search, Refresh } from '@element-plus/icons-vue'
 
@@ -14,6 +14,8 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['handleResetClick', 'handleSearchClick'])
+
 // 双向绑定的属性应该是由配置文件的 field 来决定
 const { formItem } = props.searchFormConfig
 const formObj: Record<string, string> = {}
@@ -27,6 +29,11 @@ const handleResetClick = () => {
   for (const key in formObj) {
     formData.value[key] = formObj[key]
   }
+  emit('handleResetClick')
+}
+// 点击搜索查询
+const handleSearchClick = () => {
+  emit('handleSearchClick', formData.value)
 }
 </script>
 
@@ -39,7 +46,7 @@ const handleResetClick = () => {
       <template #footer>
         <div class="footer">
           <ElButton :icon="Refresh" @click="handleResetClick">重置</ElButton>
-          <ElButton :icon="Search" type='primary'>搜索</ElButton>
+          <ElButton :icon="Search" type='primary' @click="handleSearchClick">搜索</ElButton>
         </div>
       </template>
     </DWJForm>

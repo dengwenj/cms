@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, computed } from 'vue'
+import { defineProps, computed, defineExpose } from 'vue'
 import { ElButton } from 'element-plus'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
@@ -19,14 +19,18 @@ const props = defineProps({
 
 const store = useStore()
 
-store.dispatch('system/getPageListAction', {
-  // pageUrl: '/users/list',
-  pageName: props.pageName,
-  queryInfo: {
-    offset: 0,
-    size: 10
-  }
-})
+const getListData = (queryInfo: any = {}) => {
+  store.dispatch('system/getPageListAction', {
+    // pageUrl: '/users/list',
+    pageName: props.pageName,
+    queryInfo: {
+      offset: 0,
+      size: 10,
+      ...queryInfo
+    }
+  })
+}
+getListData()
 
 const userList = computed(() => {
   return store.getters['system/pageListData'](props.pageName)
@@ -35,6 +39,10 @@ const userList = computed(() => {
 const selectionChange = (value: any) => {
   console.log(value)
 }
+
+defineExpose({
+  getListData
+})
 </script>
 
 <template>
