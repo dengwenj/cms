@@ -7,19 +7,27 @@ import DWJForm from '@/allbase-components/form'
 
 import type { IForm } from '@/allbase-components/form/types'
 
-defineProps({
+const props = defineProps({
   searchFormConfig: {
     type: Object as PropType<IForm>,
     required: true
   }
 })
 
-const formData = ref({
-  name: '',
-  id: '',
-  dz: '',
-  createTime: ''
+// 双向绑定的属性应该是由配置文件的 field 来决定
+const { formItem } = props.searchFormConfig
+const formObj: Record<string, string> = {}
+formItem.forEach((item) => {
+  formObj[item.fieid] = ''
 })
+const formData = ref(formObj)
+
+// 点击重置
+const handleResetClick = () => {
+  for (const key in formObj) {
+    formData.value[key] = formObj[key]
+  }
+}
 </script>
 
 <template>
@@ -30,7 +38,7 @@ const formData = ref({
       </template>
       <template #footer>
         <div class="footer">
-          <ElButton :icon="Refresh">重置</ElButton>
+          <ElButton :icon="Refresh" @click="handleResetClick">重置</ElButton>
           <ElButton :icon="Search" type='primary'>搜索</ElButton>
         </div>
       </template>

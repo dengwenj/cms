@@ -4,38 +4,21 @@ const formItem: IFormItem[] = [
   {
     fieid: 'name', // 字段
     type: 'input',
-    label: '用户名',
+    label: '角色名称',
     rules: [],
-    placeheader: '用户名'
+    placeheader: '请输入角色名称'
   },
   {
-    fieid: 'id',
-    type: 'password',
-    label: 'id',
+    fieid: 'intro',
+    type: 'input',
+    label: '权限介绍',
     rules: [],
-    placeheader: 'id'
-  },
-  {
-    fieid: 'dz',
-    type: 'select',
-    label: '哈哈哈',
-    rules: [],
-    placeheader: '用户名',
-    options: [
-      {
-        title: 'dwj',
-        value: '你好'
-      },
-      {
-        title: 'zww',
-        value: '你好啊'
-      }
-    ]
+    placeheader: '请输入权限介绍'
   },
   {
     fieid: 'createTime',
     type: 'datepicker',
-    label: '哈哈哈',
+    label: '创建时间',
     rules: [],
     placeheader: '用户名',
     otherOptions: {

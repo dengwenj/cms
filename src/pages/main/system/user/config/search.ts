@@ -6,14 +6,21 @@ const formItem: IFormItem[] = [
     type: 'input',
     label: '用户名',
     rules: [],
-    placeheader: '用户名'
+    placeheader: '请输入用户名'
   },
   {
     fieid: 'id',
-    type: 'password',
+    type: 'input',
     label: 'id',
     rules: [],
-    placeheader: 'id'
+    placeheader: '请输入id'
+  },
+  {
+    fieid: 'password',
+    type: 'password',
+    label: '密码',
+    rules: [],
+    placeheader: '请输入密码'
   },
   {
     fieid: 'dz',
@@ -35,7 +42,7 @@ const formItem: IFormItem[] = [
   {
     fieid: 'createTime',
     type: 'datepicker',
-    label: '哈哈哈',
+    label: '创建时间',
     rules: [],
     placeheader: '用户名',
     otherOptions: {
