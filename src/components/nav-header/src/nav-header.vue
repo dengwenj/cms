@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, defineEmits, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import {
   ElIcon,
   ElDropdown,
@@ -13,6 +13,7 @@ import { DArrowLeft, DArrowRight, ArrowDown } from '@element-plus/icons-vue'
 import DwjBreadcrumb from '@/allbase-components/breadcrumb'
 import { useStore } from '@/store'
 import { pathMapBreadcrumbs } from '@/utils/map-menus'
+import localCatch from '@/utils/cache'
 
 const emit = defineEmits(['foldChange'])
 
@@ -31,6 +32,13 @@ const handlerClick = () => {
   isFold.value = !isFold.value
   // 传给父组件
   emit('foldChange', isFold.value)
+}
+
+const router = useRouter()
+// 退出登录
+const handleLoginOutClick = () => {
+  localCatch.removeCache('token')
+  router.replace('/main')
 }
 </script>
 
@@ -58,7 +66,7 @@ const handlerClick = () => {
           </span>
           <template #dropdown>
             <ElDropdownMenu>
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item @click="handleLoginOutClick">退出登录</el-dropdown-item>
               <el-dropdown-item>系统管理</el-dropdown-item>
             </ElDropdownMenu>
           </template>

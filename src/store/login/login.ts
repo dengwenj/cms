@@ -42,12 +42,15 @@ const loginModule: Module<ILoginState, IRootState> = {
     }
   },
   actions: {
-    async accountLoginAction({ commit }, payload: IAccount) {
+    async accountLoginAction({ commit, dispatch }, payload: IAccount) {
       // 登录
       const loginRes = await accountLogin(payload)
       const { id, token } = loginRes.data
       localCatch.setCache('token', token)
       commit('changeToken', token)
+
+      // 发送初始化的请求(完整的 role/department)
+      dispatch('getInitialDataAction', null, { root: true })
 
       // 用户信息
       const userInfoRes = await userInfoRequest(id)

@@ -46,7 +46,7 @@ export function setupStore() {
     name: localCatch.getCache('name'),
     password: localCatch.getCache('password')
   })
-  store.dispatch('getInitialDataAction')
+  // store.dispatch('getInitialDataAction')
 }
 
 // 自己封闭 useStore 方便使用类型  Store<IStore>

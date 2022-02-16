@@ -41,6 +41,9 @@ const props = defineProps({
   }
 })
 
+console.log(props.propList);
+
+
 const emit = defineEmits(['selectionChange', 'update:page'])
 
 const handleSelectionChange = (value: any) => {
@@ -93,7 +96,7 @@ const handleCurrentChange = (pageCurrent: number) => {
             <!-- slot 里面的属性就是可以用作用域插槽获取  在那边，比如：#createAt="at" at 就是个对象，对象里面有 hh 和 row 属性 -->
             <slot :name="item.slotName" hh="hh" :row="scope.row">{{ scope.row[item.prop] }}</slot>
           </template>
-        </ElTableColumn>>
+        </ElTableColumn>
       </template>
     </ElTable>
     <div class="footer" v-if="isShowFooter">

@@ -114,10 +114,10 @@ defineExpose({
       <template #enable="zijiqudemingzi">
         <ElButton
           plain
-          :type="zijiqudemingzi.row.enable ? 'success' : 'warning'"
+          :type="zijiqudemingzi.row.enable === 1 ? 'success' : 'warning'"
           size='small'
         >
-          {{ zijiqudemingzi.row.enable ? '启用' : '禁用' }}
+          {{ zijiqudemingzi.row.enable === 1 ? '启用' : '禁用' }}
         </ElButton>
       </template>
       <template #createAt="createAt">
