@@ -20,8 +20,8 @@ const formData = ref<Record<string, any>>({})
 
 // 监听 是不是点击的编辑，是的话 props.defaultInfo 就变了
 watch(() => props.defaultInfo, (newValue) => {
-  for (const item in  newValue) {
-    formData.value[item] = newValue[item]
+  for (const item of  props.modalConfig.formItem) {
+    formData.value[item['fieid']] = newValue[item['fieid']]
   }
 })
 

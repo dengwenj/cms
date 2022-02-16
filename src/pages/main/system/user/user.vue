@@ -10,7 +10,21 @@ import usePageModal from '@/hooks/usePageModal'
 
 // hook
 const [pageContentRef, handleResetClick, handleSearchClick] = usePageSearch()
-const [pageModalRef, defaultInfo, handleCreateClick, handleEditClick] = usePageModal()
+
+const createCallback = () => {
+  const passwordItem = modalConfig.formItem.find((item) => item.fieid === 'password')
+  passwordItem!.isHidden = false
+}
+const editCallback = () => {
+  const passwordItem = modalConfig.formItem.find((item) => item.fieid === 'password')
+  passwordItem!.isHidden = true
+}
+const [
+  pageModalRef,
+  defaultInfo,
+  handleCreateClick,
+  handleEditClick
+] = usePageModal(createCallback, editCallback)
 </script>
 
 <template>

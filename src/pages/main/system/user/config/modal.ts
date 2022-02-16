@@ -17,7 +17,8 @@ const formItem: IFormItem[] = [
     fieid: 'password',
     type: 'password',
     label: '密码',
-    placeheader: '请输入密码'
+    placeheader: '请输入密码',
+    isHidden: true
   },
   {
     fieid: 'cellphone',

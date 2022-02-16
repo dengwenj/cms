@@ -54,7 +54,7 @@ watch(formData, (newValue) => {
         <template v-for="item in formItem" :key="item.label">
           <el-col v-bind="colLayout">
               <template v-if="item.type === 'input' || item.type === 'password' ">
-                <el-form-item :label="item.label">
+                <el-form-item v-if="!item.isHidden" :label="item.label">
                   <ElInput
                     :placeholder="item.placeheader"
                     :show-password="item.type === 'password'"

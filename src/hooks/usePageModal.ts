@@ -4,15 +4,21 @@ import type { Ref } from 'vue'
 
 import PageModal from "@/components/page-modal"
 
-export default function usePageModal(): [Ref, Ref, () => void, (item: any) => void] {
+type CallBackFn = () => void
+type Tuple = [Ref, Ref, () => void, (item: any) => void]
+
+export default function usePageModal(createCb?: CallBackFn, editCb?: CallBackFn): Tuple {
   const pageModalRef = ref<InstanceType<typeof PageModal>>()
   const defaultInfo = ref({})
 
   // 点击新建
   const handleCreateClick = () => {
+    defaultInfo.value = {}
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true
     }
+    // 当有值的时候调用
+    createCb?.()
   }
   // 点击编辑
   const handleEditClick = (item: any) => {
@@ -20,6 +26,8 @@ export default function usePageModal(): [Ref, Ref, () => void, (item: any) => vo
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true
     }
+    // 当有值的时候调用
+    editCb?.()
   }
 
   return [pageModalRef, defaultInfo, handleCreateClick, handleEditClick]

@@ -7,6 +7,7 @@ export interface IFormItem {
   placeheader?: string
   options?: any[] // select 里面 options 的属性
   otherOptions?: any // 特殊的属性
+  isHidden?: boolean
 }
 
 export interface IForm {
