@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineProps, computed, defineExpose, ref, watch } from 'vue'
+import { defineProps, computed, defineExpose, ref, watch, defineEmits } from 'vue'
 import { ElButton, ElPopconfirm } from 'element-plus'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
@@ -17,6 +17,7 @@ const props = defineProps({
     required: true
   }
 })
+const emit = defineEmits(['handleCreateClick', 'handleEditClick'])
 
 // 双向绑定 pageInfo
 const pageInfo = ref({
@@ -78,6 +79,14 @@ const handleDeleteClick = (item: any): boolean => {
   })
   return true
 }
+// 点击编辑
+const handleEditClick = (item: any) => {
+  emit('handleEditClick', item)
+}
+// 点击新建
+const handleCreateClick = () => {
+  emit('handleCreateClick')
+}
 
 defineExpose({
   getListData
@@ -95,7 +104,11 @@ defineExpose({
     >
       <!-- header-handler 插槽 -->
       <template #header-handler>
-        <ElButton v-if="myCreate" type='primary'>新建用户</ElButton>
+        <ElButton
+          v-if="myCreate"
+          type='primary'
+          @click="handleCreateClick"
+        >新建用户</ElButton>
       </template>
       <!-- 内容插槽 -->
       <template #enable="zijiqudemingzi">
@@ -114,7 +127,13 @@ defineExpose({
         {{ $filters.formatTime(updateAt.row.updateAt) }}
       </template>
       <template #handle="scope">
-        <ElButton v-if="myUpdate" :icon="Edit" size='small' type="text">编辑</ElButton>
+        <ElButton
+          v-if="myUpdate"
+          :icon="Edit"
+          size='small'
+          type="text"
+          @click="handleEditClick(scope.row)"
+        >编辑</ElButton>
         <ElPopconfirm title="是否确定删除" @confirm="handleDeleteClick(scope.row)">
           <template #reference>
             <ElButton

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
 import searchFormConfig from './config/search'
@@ -9,6 +11,21 @@ import modalConfig from './config/modal'
 
 // hook
 const [pageContentRef, handleResetClick, handleSearchClick] = usePageSearch()
+
+const pageModalRef = ref<InstanceType<typeof PageModal>>()
+
+// 点击新建
+const handleCreateClick = () => {
+  if (pageModalRef.value) {
+    pageModalRef.value.centerDialogVisible = true
+  }
+}
+// 点击编辑
+const handleEditClick = (item: any) => {
+  if (pageModalRef.value) {
+    pageModalRef.value.centerDialogVisible = true
+  }
+}
 </script>
 
 <template>
@@ -23,8 +40,10 @@ const [pageContentRef, handleResetClick, handleSearchClick] = usePageSearch()
         ref="pageContentRef"
         :contentTableConfig="contentTableConfig"
         pageName="users"
+        @handleCreateClick="handleCreateClick"
+        @handleEditClick="handleEditClick"
       />
     </div>
-    <PageModal :modalConfig="modalConfig"></PageModal>
+    <PageModal ref="pageModalRef" :modalConfig="modalConfig"></PageModal>
   </div>
 </template>

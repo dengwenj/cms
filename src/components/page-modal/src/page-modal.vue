@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, defineExpose } from 'vue'
 import { ElDialog, ElButton } from 'element-plus'
 
 import DWJForm from '@/allbase-components/form'
@@ -11,8 +11,12 @@ const props = defineProps({
   }
 })
 
-const centerDialogVisible = ref(true)
+const centerDialogVisible = ref(false)
 const formData = ref({})
+
+defineExpose({
+  centerDialogVisible
+})
 </script>
 
 <template>
