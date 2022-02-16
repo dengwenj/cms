@@ -10,3 +10,10 @@ export const getPageListData = (url: string, queryInfo: IQueryInfo) => {
     data: queryInfo
   })
 }
+
+export const deletePageData = (url: string) => {
+  return dwjRequest.request({
+    method: 'DELETE',
+    url
+  })
+}

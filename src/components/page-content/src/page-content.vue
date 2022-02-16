@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { defineProps, computed, defineExpose, ref, watch } from 'vue'
-import { ElButton } from 'element-plus'
+import { ElButton, ElPopconfirm } from 'element-plus'
 import { Edit, Delete } from '@element-plus/icons-vue'
 
 import { useStore } from '@/store'
@@ -20,7 +20,7 @@ const props = defineProps({
 
 // 双向绑定 pageInfo
 const pageInfo = ref({
-  pageCurrent: 0,
+  pageCurrent: 1,
   pageSize: 10
 })
 
@@ -38,7 +38,7 @@ const getListData = (queryInfo: any = {}) => {
     // pageUrl: '/users/list',
     pageName: props.pageName,
     queryInfo: {
-      offset: pageInfo.value.pageCurrent * pageInfo.value.pageSize,
+      offset: (pageInfo.value.pageCurrent - 1) * pageInfo.value.pageSize,
       size: pageInfo.value.pageSize,
       ...queryInfo
     }
@@ -65,11 +65,18 @@ const slotNameFilterObj = propList.filter((item: any) => {
   if (item.slotName === 'handle') return false
   return true
 })
-console.log(slotNameFilterObj);
-
 
 const selectionChange = (value: any) => {
   console.log(value)
+}
+
+// 点击删除
+const handleDeleteClick = (item: any): boolean => {
+  store.dispatch('system/deletePageData', {
+    pageName: props.pageName,
+    id: item.id
+  })
+  return true
 }
 
 defineExpose({
@@ -106,9 +113,19 @@ defineExpose({
       <template #updateAt="updateAt">
         {{ $filters.formatTime(updateAt.row.updateAt) }}
       </template>
-      <template #handle>
+      <template #handle="scope">
         <ElButton v-if="myUpdate" :icon="Edit" size='small' type="text">编辑</ElButton>
-        <ElButton v-if="myDelete" :icon="Delete" size="small" type='text' style="color: #e06c75;">删除</ElButton>
+        <ElPopconfirm title="是否确定删除" @confirm="handleDeleteClick(scope.row)">
+          <template #reference>
+            <ElButton
+              v-if="myDelete"
+              :icon="Delete"
+              size="small"
+              type='text'
+              style="color: #e06c75;"
+            >删除</ElButton>
+          </template>
+        </ElPopconfirm>
       </template>
       <!-- 动态插槽 -->
       <template v-for="item in slotNameFilterObj" :key="item.prop" #[item.slotName]="scope">
