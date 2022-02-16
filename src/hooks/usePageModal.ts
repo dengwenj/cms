@@ -22,6 +22,8 @@ export default function usePageModal(createCb?: CallBackFn, editCb?: CallBackFn)
   }
   // 点击编辑
   const handleEditClick = (item: any) => {
+    console.log(item)
+
     defaultInfo.value = { ...item }
     if (pageModalRef.value) {
       pageModalRef.value.centerDialogVisible = true

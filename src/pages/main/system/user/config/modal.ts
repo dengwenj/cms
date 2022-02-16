@@ -25,6 +25,20 @@ const formItem: IFormItem[] = [
     type: 'input',
     label: '电话号码',
     placeheader: '请输入电话号码'
+  },
+  {
+    fieid: 'departmentId',
+    type: 'select',
+    label: '选择部门',
+    placeheader: '请选择部门',
+    options: []
+  },
+  {
+    fieid: 'roleId',
+    type: 'select',
+    label: '选择角色',
+    placeheader: '请选择角色',
+    options: []
   }
 ]
 
