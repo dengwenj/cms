@@ -57,6 +57,7 @@ const [
         pageName="users"
         @handleCreateClick="handleCreateClick"
         @handleEditClick="handleEditClick"
+        title="新建用户"
       />
     </div>
     <PageModal
@@ -64,6 +65,7 @@ const [
       :modalConfig="modalConfigRef"
       :defaultInfo="defaultInfo"
       pageName="users"
+      title="新建用户"
     />
   </div>
 </template>

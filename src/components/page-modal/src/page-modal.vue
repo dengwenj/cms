@@ -17,6 +17,10 @@ const props = defineProps({
   pageName: {
     type: String,
     required: true
+  },
+  title: {
+    type: String,
+    default: ''
   }
 })
 
@@ -57,7 +61,7 @@ defineExpose({
 
 <template>
   <div class="page-modal">
-    <ElDialog v-model="centerDialogVisible" title="新建用户" width="30%" center destroy-on-close>
+    <ElDialog v-model="centerDialogVisible" :title="title" width="30%" center destroy-on-close>
       <DWJForm v-bind="modalConfig" v-model="formData" />
       <template #footer>
         <span class="dialog-footer">

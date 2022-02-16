@@ -15,6 +15,10 @@ const props = defineProps({
   pageName: {
     type: String,
     required: true
+  },
+  title: {
+    type: String,
+    default: ''
   }
 })
 const emit = defineEmits(['handleCreateClick', 'handleEditClick'])
@@ -108,7 +112,7 @@ defineExpose({
           v-if="myCreate"
           type='primary'
           @click="handleCreateClick"
-        >新建用户</ElButton>
+        >{{ title }}</ElButton>
       </template>
       <!-- 内容插槽 -->
       <template #enable="zijiqudemingzi">
