@@ -4,6 +4,8 @@ import PageContent from '@/components/page-content'
 import searchFormConfig from './config/search'
 import contentTableConfig from './config/content'
 import usePageSearch from '@/hooks/usePageSearch'
+import PageModal from '@/components/page-modal'
+import modalConfig from './config/modal'
 
 // hook
 const [pageContentRef, handleResetClick, handleSearchClick] = usePageSearch()
@@ -23,5 +25,6 @@ const [pageContentRef, handleResetClick, handleSearchClick] = usePageSearch()
         pageName="users"
       />
     </div>
+    <PageModal :modalConfig="modalConfig"></PageModal>
   </div>
 </template>
