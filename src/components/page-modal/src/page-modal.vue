@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, defineProps, defineExpose, watch } from 'vue'
 import { ElDialog, ElButton } from 'element-plus'
+import { useStore } from '@/store'
 
 import DWJForm from '@/allbase-components/form'
 
@@ -12,6 +13,10 @@ const props = defineProps({
   defaultInfo: {
     type: Object,
     default: () => ({})
+  },
+  pageName: {
+    type: String,
+    required: true
   }
 })
 
@@ -25,6 +30,26 @@ watch(() => props.defaultInfo, (newValue) => {
   }
 })
 
+const store = useStore()
+// 点击确定
+const handleClick = () => {
+  centerDialogVisible.value = false
+  if (Object.keys(props.defaultInfo).length > 0) {
+    // 编辑
+    store.dispatch('system/editPageDataAction', {
+      pageName: props.pageName,
+      editData: { ...formData.value },
+      id: props.defaultInfo.id
+    })
+    return
+  }
+  // 新建
+  store.dispatch('system/createPageDataAction', {
+    pageName: props.pageName,
+    createData: { ...formData.value }
+  })
+}
+
 defineExpose({
   centerDialogVisible
 })
@@ -37,7 +62,7 @@ defineExpose({
       <template #footer>
         <span class="dialog-footer">
           <ElButton @click="centerDialogVisible = false">取消</ElButton>
-          <ElButton type="primary" @click="centerDialogVisible = false">确定</ElButton>
+          <ElButton type="primary" @click="handleClick">确定</ElButton>
         </span>
       </template>
   </ElDialog>

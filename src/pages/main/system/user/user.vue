@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onUpdated } from 'vue'
+import { computed } from 'vue'
 
 import { useStore } from '@/store'
 import PageSearch from '@/components/page-search'
@@ -63,6 +63,7 @@ const [
       ref="pageModalRef"
       :modalConfig="modalConfigRef"
       :defaultInfo="defaultInfo"
+      pageName="users"
     />
   </div>
 </template>

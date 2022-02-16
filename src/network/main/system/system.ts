@@ -17,3 +17,19 @@ export const deletePageData = (url: string) => {
     url
   })
 }
+
+export const createPageData = (url: string, createData: any) => {
+  return dwjRequest.request<IDataType>({
+    method: 'POST',
+    url,
+    data: createData
+  })
+}
+
+export const editPageData = (url: string, editData: any) => {
+  return dwjRequest.request<IDataType>({
+    method: 'PATCH',
+    url,
+    data: editData
+  })
+}

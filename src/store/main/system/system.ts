@@ -1,6 +1,6 @@
 import type { Module } from "vuex"
 
-import { getPageListData, deletePageData } from "@/network/main/system/system"
+import { getPageListData, deletePageData, createPageData, editPageData } from "@/network/main/system/system"
 
 import type { IRootState } from '../../types'
 import type { ISystemState, ISystemPayload, IUserList, IRoleList } from './types'
@@ -71,6 +71,34 @@ const systemModule: Module<ISystemState, IRootState> = {
 
       // 发送删除请求
       await deletePageData(url)
+
+      // 重新获取数据加载页面
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
+    },
+    async createPageDataAction({ dispatch }, payload: any) {
+      const { pageName, createData } = payload
+      const url = `/${pageName}`
+      await createPageData(url, createData)
+
+      // 重新获取数据加载页面
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
+    },
+    async editPageDataAction({ dispatch }, payload: any) {
+      const { pageName, editData, id } = payload
+      const url = `/${pageName}/${id}`
+      await editPageData(url, editData)
 
       // 重新获取数据加载页面
       dispatch('getPageListAction', {
