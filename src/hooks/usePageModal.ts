@@ -4,7 +4,7 @@ import type { Ref } from 'vue'
 
 import PageModal from "@/components/page-modal"
 
-type CallBackFn = () => void
+type CallBackFn = (item?: any) => void
 type Tuple = [Ref, Ref, () => void, (item: any) => void]
 
 export default function usePageModal(createCb?: CallBackFn, editCb?: CallBackFn): Tuple {
@@ -29,7 +29,7 @@ export default function usePageModal(createCb?: CallBackFn, editCb?: CallBackFn)
       pageModalRef.value.centerDialogVisible = true
     }
     // 当有值的时候调用
-    editCb?.()
+    editCb?.(item)
   }
 
   return [pageModalRef, defaultInfo, handleCreateClick, handleEditClick]
