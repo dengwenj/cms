@@ -3,6 +3,7 @@ import type { Store } from 'vuex'
 
 import login from './login/login'
 import system from './main/system/system'
+import dashboard from './main/analysis/dashboard'
 import localCatch from '@/utils/cache'
 import { getPageListData } from '@/network/main/system/system'
 import type { IRootState, IStore } from './types'
@@ -45,7 +46,8 @@ const store = createStore<IRootState>({
   },
   modules: {
     login,
-    system
+    system,
+    dashboard
   }
 })
 
