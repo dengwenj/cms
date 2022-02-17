@@ -3,6 +3,7 @@ import type { ISystemState } from './main/system/types'
 export interface IRootState {
   entireDepartment: any[]
   entirRole: any[]
+  entirMenu: any[]
 }
 
 export interface IRootWithModule {

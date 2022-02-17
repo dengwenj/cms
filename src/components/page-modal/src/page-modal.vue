@@ -14,6 +14,10 @@ const props = defineProps({
     type: Object,
     default: () => ({})
   },
+  otherInfo: {
+    type: Object,
+    default: () => ({})
+  },
   pageName: {
     type: String,
     required: true
@@ -42,7 +46,7 @@ const handleClick = () => {
     // 编辑
     store.dispatch('system/editPageDataAction', {
       pageName: props.pageName,
-      editData: { ...formData.value },
+      editData: { ...formData.value, ...props.otherInfo },
       id: props.defaultInfo.id
     })
     return
@@ -50,7 +54,7 @@ const handleClick = () => {
   // 新建
   store.dispatch('system/createPageDataAction', {
     pageName: props.pageName,
-    createData: { ...formData.value }
+    createData: { ...formData.value, ...props.otherInfo }
   })
 }
 
@@ -63,6 +67,7 @@ defineExpose({
   <div class="page-modal">
     <ElDialog v-model="centerDialogVisible" :title="title" width="30%" center destroy-on-close>
       <DWJForm v-bind="modalConfig" v-model="formData" />
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <ElButton @click="centerDialogVisible = false">取消</ElButton>

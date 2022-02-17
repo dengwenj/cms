@@ -10,8 +10,8 @@ export interface ISystemState {
 }
 
 export interface IQueryInfo {
-  offset: number
-  size: number
+  offset?: number
+  size?: number
 }
 
 export interface ISystemPayload {
