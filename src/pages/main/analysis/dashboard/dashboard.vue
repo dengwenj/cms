@@ -3,9 +3,28 @@ import { ElRow, ElCol } from 'element-plus'
 
 import { useStore } from '@/store'
 import DWJCard from '@/allbase-components/card'
+import BaseEchart from '@/allbase-components/echart'
 
 const store = useStore()
 store.dispatch('dashboard/getCategoryGoods')
+
+const options = {
+  xAxis: {
+    type: 'category',
+    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [120, 200, 150, 80, 70, 110, 130],
+      type: 'bar'
+    }
+  ]
+}
+
+
 </script>
 
 <template>
@@ -23,7 +42,9 @@ store.dispatch('dashboard/getCategoryGoods')
     </ElRow>
     <ElRow :gutter="10" style="margin-top: 20px;">
       <ElCol :span="12">
-        <DWJCard title="分类商品的销量"></DWJCard>
+        <DWJCard title="分类商品的销量">
+          <BaseEchart :options="options"></BaseEchart>
+        </DWJCard>
       </ElCol>
       <ElCol :span="12">
         <DWJCard title="分类商品的收藏"></DWJCard>
